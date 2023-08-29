@@ -48,4 +48,11 @@ jobs:
           build_dir: dol-release
           keep_history: false
           target_branch: gh-pages
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-args: --prod
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_TEAM_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
             
