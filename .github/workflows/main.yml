@@ -40,6 +40,25 @@ jobs:
             index_html_file.seek(0)
             index_html_file.truncate()
             index_html_file.write(index_html)
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-args: --prod
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_TEAM_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+      - name: Modify manifest.json
+        shell: python3 {0}
+        run: |
+          import json
+          with open("dol-release/manifest.json", "r+", encoding="utf-8") as manifest_file:
+            manifest_json = json.loads(manifest_file.read())
+            manifest_json["scope"] = "/dol-pwa/"
+            manifest_json["start_url"] = "/dol-pwa/"
+            manifest_json["shortcuts"][0]["url"] = "/dol-pwa/"
+            manifest_file.seek(0)
+            manifest_file.truncate()
+            manifest_file.write(json.dumps(manifest_json, indent=2))
       - name: Deploy to GitHub Pages
         uses: crazy-max/ghaction-github-pages@v3
         env:
@@ -48,11 +67,5 @@ jobs:
           build_dir: dol-release
           keep_history: false
           target_branch: gh-pages
-      - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v25
-        with:
-          vercel-args: --prod
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_TEAM_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+      
             
