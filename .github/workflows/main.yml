@@ -30,6 +30,9 @@ jobs:
         run: |
           with open("dol-release/index.html", "r+", encoding="utf-8") as index_html_file:
             index_html = index_html_file.read()
+            insert_index = index_html.find("<head>") + 7
+            index_html = index_html[:insert_index] + \
+                "<link rel=\"manifest\" href=\"manifest.json\">\n" + index_html[insert_index:]
             insert_index = index_html.find("<body>") + 7
             index_html = index_html[:insert_index] + \
                 "    <script>\n" + \
