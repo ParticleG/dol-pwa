@@ -78,6 +78,8 @@ jobs:
             manifest_json["scope"] = "/dol-pwa/"
             manifest_json["start_url"] = "/dol-pwa/"
             manifest_json["shortcuts"][0]["url"] = "/dol-pwa/"
+            for icon in manifest_json["icons"]:
+              icon["src"] = icon["src"].replace("icons/", "/dol-pwa/icons/")
             manifest_file.seek(0)
             manifest_file.truncate()
             manifest_file.write(json.dumps(manifest_json, indent=2))
@@ -111,3 +113,13 @@ jobs:
           vercel-org-id: ${{ secrets.VERCEL_TEAM_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
           working-directory: ${{ env.RELEASE_FOLDER_PATH }}
+
+  post-build:
+    runs-on: ubuntu-latest
+    if: ${{ always() }}
+    needs: [build, deploy-github, deploy-vercel]
+    steps:
+      - name: Cleanup
+        uses: geekyeggo/delete-artifact@v2
+        with:
+          name: ${{ env.RELEASE_ARTIFACT_NAME }}
