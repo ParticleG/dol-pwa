@@ -75,11 +75,11 @@ jobs:
           import json
           with open("${{ env.RELEASE_FOLDER_PATH }}/manifest.json", "r+", encoding="utf-8") as manifest_file:
             manifest_json = json.loads(manifest_file.read())
-            manifest_json["scope"] = "/dol-pwa/"
-            manifest_json["start_url"] = "/dol-pwa/"
-            manifest_json["shortcuts"][0]["url"] = "/dol-pwa/"
+            manifest_json["scope"] = "/${{ github.event.repository.name }}/"
+            manifest_json["start_url"] = "/${{ github.event.repository.name }}/"
+            manifest_json["shortcuts"][0]["url"] = "/${{ github.event.repository.name }}/"
             for icon in manifest_json["icons"]:
-              icon["src"] = icon["src"].replace("icons/", "/dol-pwa/icons/")
+              icon["src"] = icon["src"].replace("icons/", "/${{ github.event.repository.name }}/icons/")
             manifest_file.seek(0)
             manifest_file.truncate()
             manifest_file.write(json.dumps(manifest_json, indent=2))
