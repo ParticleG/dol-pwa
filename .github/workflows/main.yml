@@ -1,4 +1,4 @@
-name: Chinese Localization
+name: Main
 
 on:
   schedule:
@@ -20,13 +20,13 @@ jobs:
       - name: List downloaded files
         run: |
           echo "Downloaded Chinese version DOL: ${{ steps.getRelease.outputs.tag_name }}"
-          unzip ${{ fromJson(steps.getRelease.outputs.downloaded_files)[0] }} -d dol-release
+          unzip -q ${{ fromJson(steps.getRelease.outputs.downloaded_files)[0] }} -d dol-release
           pushd dol-release
           ls -al
           popd
       - name: Construct PWA
         run: |
-          cp -r .github/workflows/pwa/* dol-release/
+          cp -r .github/pwa/* dol-release/
           mv "dol-release/Degrees of Lewdity.html" dol-release/index.html
       - name: Modify HTML
         shell: python3 {0}
