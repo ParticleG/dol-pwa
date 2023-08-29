@@ -17,13 +17,10 @@ jobs:
           repository: "Eltirosto/Degrees-of-Lewdity-Chinese-Localization"
           latest: true
           fileName: "dol-*.zip"
-      - name: List downloaded files
+      - name: Extract downloaded file
         run: |
           echo "Downloaded Chinese version DOL: ${{ steps.getRelease.outputs.tag_name }}"
           unzip -q ${{ fromJson(steps.getRelease.outputs.downloaded_files)[0] }} -d dol-release
-          pushd dol-release
-          ls -al
-          popd
       - name: Construct PWA
         run: |
           cp -r .github/pwa/* dol-release/
@@ -31,7 +28,7 @@ jobs:
       - name: Modify HTML
         shell: python3 {0}
         run: |
-          with open("dol-release/index.html", "r", encoding="utf-8") as index_html_file:
+          with open("dol-release/index.html", "r+", encoding="utf-8") as index_html_file:
             index_html = index_html_file.read()
             insert_index = index_html.find("<body>") + 7
             index_html = index_html[:insert_index] + \
