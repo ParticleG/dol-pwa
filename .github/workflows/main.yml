@@ -1,21 +1,26 @@
+name: Chinese Localization
+
 on:
   schedule:
-  - cron: "0 20 * * *"
+    - cron: "0 20 * * *"
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - id: getRelease
-      name: release-downloader
-      uses: robinraju/release-downloader@v1.8
-      with:
-        repository: "Eltirosto/Degrees-of-Lewdity-Chinese-Localization"
-        latest: true
-        fileName: "dol-*.zip"
-    - name: List downloaded files
-      run: |
-        echo "${{ steps.getRelease.outputs.downloaded_files }}"
-        ls -l
+      - uses: actions/checkout@v3
+      - id: getRelease
+        name: release-downloader
+        uses: robinraju/release-downloader@v1.8
+        with:
+          repository: "Eltirosto/Degrees-of-Lewdity-Chinese-Localization"
+          latest: true
+          fileName: "dol-*.zip"
+      - name: List downloaded files
+        run: |
+          echo "Downloaded Chinese version DOL: ${{ steps.getRelease.outputs.tag_name }}"
+          unzip ${{ fromJson(steps.getRelease.outputs.downloaded_files)[0] }} -d dol-chs
+          pushd dol-chs
+          ls -al
+          popd
