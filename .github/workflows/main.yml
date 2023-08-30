@@ -96,10 +96,18 @@ jobs:
                 "        uiBarBody = document.querySelector('#ui-bar-body');\n" + \
                 "        await sleep(100);\n" + \
                 "      }\n" + \
-                "      const newElement = document.createElement('div');\n" + \
-                "      newElement.style = 'text-align:left;font-size:0.75rem;position:absolute;top:85%;left:10px;width:258px;padding:7px';\n" + \
-                "      newElement.innerHTML = 'Applied Mods:<br>- Degrees of Lewdity Graphics Mod<br>';\n" + \
-                "      uiBarBody.appendChild(newElement);\n" + \
+                "      const modTitle = document.createElement('div');\n" + \
+                "      modTitle.style = 'text-align:center;';\n" + \
+                "      modTitle.innerText = 'Applied Mods:';\n" + \
+                "      const mod_01 = document.createElement('div');\n" + \
+                "      mod_01.style = 'text-align:left;font-size:75%;border:1px solid #666;padding:7px;'\n" + \
+                "      mod_01.innerText = '- Degrees of Lewdity Graphics Mod';\n" + \
+                "      const modList = document.createElement('div');\n" + \
+                "      modList.style = 'position:absolute;top:85%;left:10px;width:258px;';\n" + \
+                "      modList.id = 'mod-list';\n" + \
+                "      modList.appendChild(modTitle);\n" + \
+                "      modList.appendChild(mod_01);\n" + \
+                "      uiBarBody.appendChild(modList);\n" + \
                 "    })();\n" + \
                 "  </script>\n" + index_html[insert_index:]
             index_html_file.seek(0)
