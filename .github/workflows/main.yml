@@ -91,18 +91,15 @@ jobs:
                 "  <script type=\"text/javascript\">\n" + \
                 "    const sleep = (timeout) => new Promise(resolve => setTimeout(resolve, timeout));\n" + \
                 "    (async () => {\n" + \
-                "      let versionElement = document.querySelector('#gameVersionDisplay');\n" + \
+                "      let versionElement = document.querySelector('#versioninfo');\n" + \
                 "      while (!versionElement) {\n" + \
-                "        versionElement = document.querySelector('#gameVersionDisplay');\n" + \
+                "        versionElement = document.querySelector('#versioninfo');\n" + \
                 "        await sleep(100);\n" + \
                 "      }\n" + \
-                "      versionElement.innerHTML = versionElement.innerHTML + ' (1 Mod)';\n" + \
-                "      let versionElement2 = document.querySelector('#gameVersionDisplay2');\n" + \
-                "      while (!versionElement2) {\n" + \
-                "        versionElement2 = document.querySelector('#gameVersionDisplay2');\n" + \
-                "        await sleep(100);\n" + \
-                "      }\n" + \
-                "      versionElement2.innerHTML = versionElement2.innerHTML + '<br>Applied Mods:<br>- Degrees of Lewdity Graphics Mod';\n" + \
+                "      const newElement = document.createElement('div')\n" + \
+                "      newElement.style = 'text-align: left; font-size: 0.75rem'\n" + \
+                "      newElement.innerHTML = '<br>Applied Mods:<br>- Degrees of Lewdity Graphics Mod<br>'\n" + \
+                "      versionElement.insertBefore(newElement, versionElement.querySelectorAll('br')[3]);\n" + \
                 "    })();\n" + \
                 "  </script>\n" + index_html[insert_index:]
             index_html_file.seek(0)
