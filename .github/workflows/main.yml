@@ -100,10 +100,10 @@ jobs:
                 "      modTitle.style = 'text-align:center;';\n" + \
                 "      modTitle.innerText = 'Applied Mods:';\n" + \
                 "      const mod_01 = document.createElement('div');\n" + \
-                "      mod_01.style = 'text-align:left;font-size:75%;border:1px solid #666;padding:7px;'\n" + \
-                "      mod_01.innerText = '- Degrees of Lewdity Graphics Mod';\n" + \
+                "      mod_01.style = 'text-align:left;font-size:80%;border:1px solid #666;padding:7px;'\n" + \
+                "      mod_01.innerText = 'Degrees of Lewdity Graphics Mod';\n" + \
                 "      const modList = document.createElement('div');\n" + \
-                "      modList.style = 'position:absolute;top:85%;left:10px;width:258px;';\n" + \
+                "      modList.style = 'position:absolute;top:calc(100%-230px);left:10px;width:258px;';\n" + \
                 "      modList.id = 'mod-list';\n" + \
                 "      modList.appendChild(modTitle);\n" + \
                 "      modList.appendChild(mod_01);\n" + \
