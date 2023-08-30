@@ -166,16 +166,14 @@ jobs:
         run: |
           unzip -q ${{ env.RELEASE_ARTIFACT_PATH }} -d ${{ env.RELEASE_FOLDER_PATH }}
           rm ${{ env.RELEASE_ARTIFACT_PATH }}
-      - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v25
-        continue-on-error: true
+      - name: Deploy to Vercel Pages
+        uses: crazy-max/ghaction-github-pages@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          github-comment: false
-          vercel-args: --prod
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_TEAM_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          working-directory: ${{ env.RELEASE_FOLDER_PATH }}
+          build_dir: ${{ env.RELEASE_FOLDER_PATH }}
+          keep_history: false
+          target_branch: vercel-pages
 
   post-build:
     runs-on: ubuntu-latest
