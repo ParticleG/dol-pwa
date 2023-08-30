@@ -81,6 +81,20 @@ jobs:
           popd
           mv -f ${{ env.MOD_FOLDER_PATH }}/* ${{ env.RELEASE_FOLDER_PATH }}
           rm -rf ${{ env.MOD_FOLDER_PATH }}
+      - name: Modify HTML
+        shell: python3 {0}
+        run: |
+          with open("index.html", "r+", encoding="utf-8") as index_html_file:
+            index_html = index_html_file.read()
+            insert_index = index_html.find("</body>")
+            index_html = index_html[:insert_index] + \
+                "    <script type=\"text/javascript\">\n" + \
+                "        const versionHtml = document.querySelector('#gameVersionDisplay').innerHTML;\n" + \
+                "        document.querySelector('#gameVersionDisplay').innerHTML = versionHtml + '<br>Applied Mods:<br>- Degrees of Lewdity Graphics Mod';\n" + \
+                "    </script>\n" + index_html[insert_index:]
+            index_html_file.seek(0)
+            index_html_file.truncate()
+            index_html_file.write(index_html)
       - name: Pack release artifact
         run: |
           7z a ${{ env.RELEASE_ARTIFACT_PATH }} ${{ env.RELEASE_FOLDER_PATH }}/*
@@ -139,6 +153,7 @@ jobs:
           unzip -q ${{ env.RELEASE_ARTIFACT_PATH }} -d ${{ env.RELEASE_FOLDER_PATH }}
       - name: Deploy to Vercel
         uses: amondnet/vercel-action@v25
+        continue-on-error: true
         with:
           github-comment: false
           vercel-args: --prod
