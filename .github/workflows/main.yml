@@ -81,35 +81,32 @@ jobs:
           popd
           cp -r ${{ env.MOD_FOLDER_PATH }}/* ${{ env.RELEASE_FOLDER_PATH }}
           rm -rf ${{ env.MOD_FOLDER_PATH }}
+      - name: Apply 'BEEESSS Community Sprite Compilation'
+        env:
+          MOD_FOLDER_PATH: ./kaervek-beeesss-community-sprite-compilation-master-img
+        run: |
+          wget -q https://gitgud.io/Kaervek/kaervek-beeesss-community-sprite-compilation/-/archive/master/kaervek-beeesss-community-sprite-compilation-master.zip?path=img -O temp.zip
+          unzip -q ./temp.zip
+          rm temp.zip
+          ls -l
+          pushd ${{ env.MOD_FOLDER_PATH }}
+          ls -l
+          popd
+          cp -r ${{ env.MOD_FOLDER_PATH }}/* ${{ env.RELEASE_FOLDER_PATH }}
+          rm -rf ${{ env.MOD_FOLDER_PATH }}
       - name: Modify HTML
         shell: python3 {0}
         run: |
           with open("${{ env.RELEASE_FOLDER_PATH }}/index.html", "r+", encoding="utf-8") as index_html_file:
             index_html = index_html_file.read()
-            insert_index = index_html.find("</body>")
+            insert_index = index_html.find("&lt;div class=&quot;small-description&quot;&gt;")
             index_html = index_html[:insert_index] + \
-                "  <script type=\"text/javascript\">\n" + \
-                "    const sleep = (timeout) => new Promise(resolve => setTimeout(resolve, timeout));\n" + \
-                "    (async () => {\n" + \
-                "      let uiBarBody = document.querySelector('#ui-bar-body');\n" + \
-                "      while (!uiBarBody) {\n" + \
-                "        uiBarBody = document.querySelector('#ui-bar-body');\n" + \
-                "        await sleep(100);\n" + \
-                "      }\n" + \
-                "      const modTitle = document.createElement('div');\n" + \
-                "      modTitle.style = 'text-align:center;';\n" + \
-                "      modTitle.innerText = 'Applied Mods:';\n" + \
-                "      const mod_01 = document.createElement('div');\n" + \
-                "      mod_01.style = 'text-align:left;font-size:80%;border:1px solid #666;padding:7px;'\n" + \
-                "      mod_01.innerText = 'Degrees of Lewdity Graphics Mod';\n" + \
-                "      const modList = document.createElement('div');\n" + \
-                "      modList.style = 'position:absolute;top:85vh;left:10px;width:258px;';\n" + \
-                "      modList.id = 'mod-list';\n" + \
-                "      modList.appendChild(modTitle);\n" + \
-                "      modList.appendChild(mod_01);\n" + \
-                "      uiBarBody.appendChild(modList);\n" + \
-                "    })();\n" + \
-                "  </script>\n" + index_html[insert_index:]
+                "&lt;div class=&quot;small-description&quot;&gt;\n" + \
+                "已生效的MOD列表(由上至下顺序安装):\n" + \
+                "&lt;br&gt;\n" + \
+                "- Degrees of Lewdity Graphics Mod\n" + \
+                "&lt;br&gt;\n" + \
+                "- BEEESSS Community Sprite Compilation\n" + index_html[insert_index:]
             index_html_file.seek(0)
             index_html_file.truncate()
             index_html_file.write(index_html)
