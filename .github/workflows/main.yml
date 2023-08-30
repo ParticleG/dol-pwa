@@ -69,6 +69,7 @@ jobs:
       - name: Unzip release artifact
         run: |
           unzip -q ${{ env.RELEASE_ARTIFACT_PATH }} -d ${{ env.RELEASE_FOLDER_PATH }}
+          rm ${{ env.RELEASE_ARTIFACT_PATH }}
       - name: Apply 'Degrees of Lewdity Graphics Mod'
         env:
           MOD_FOLDER_PATH: ./degrees-of-lewdity-graphics-mod
@@ -88,10 +89,6 @@ jobs:
           wget -q https://gitgud.io/Kaervek/kaervek-beeesss-community-sprite-compilation/-/archive/master/kaervek-beeesss-community-sprite-compilation-master.zip?path=img -O temp.zip
           unzip -q ./temp.zip
           rm temp.zip
-          ls -l
-          pushd ${{ env.MOD_FOLDER_PATH }}
-          ls -l
-          popd
           cp -r ${{ env.MOD_FOLDER_PATH }}/* ${{ env.RELEASE_FOLDER_PATH }}
           rm -rf ${{ env.MOD_FOLDER_PATH }}
       - name: Modify HTML
@@ -106,7 +103,8 @@ jobs:
                 "&lt;br&gt;\n" + \
                 "- Degrees of Lewdity Graphics Mod\n" + \
                 "&lt;br&gt;\n" + \
-                "- BEEESSS Community Sprite Compilation\n" + index_html[insert_index:]
+                "- BEEESSS Community Sprite Compilation\n" + \
+                "&lt;br&gt;\n" + index_html[insert_index:]
             index_html_file.seek(0)
             index_html_file.truncate()
             index_html_file.write(index_html)
@@ -131,6 +129,7 @@ jobs:
       - name: Unzip release artifact
         run: |
           unzip -q ${{ env.RELEASE_ARTIFACT_PATH }} -d ${{ env.RELEASE_FOLDER_PATH }}
+          rm ${{ env.RELEASE_ARTIFACT_PATH }}
       - name: Modify manifest.json
         shell: python3 {0}
         run: |
@@ -166,6 +165,7 @@ jobs:
       - name: Unzip release artifact
         run: |
           unzip -q ${{ env.RELEASE_ARTIFACT_PATH }} -d ${{ env.RELEASE_FOLDER_PATH }}
+          rm ${{ env.RELEASE_ARTIFACT_PATH }}
       - name: Deploy to Vercel
         uses: amondnet/vercel-action@v25
         continue-on-error: true
