@@ -84,7 +84,7 @@ jobs:
       - name: Modify HTML
         shell: python3 {0}
         run: |
-          with open("index.html", "r+", encoding="utf-8") as index_html_file:
+          with open("${{ env.RELEASE_FOLDER_PATH }}/index.html", "r+", encoding="utf-8") as index_html_file:
             index_html = index_html_file.read()
             insert_index = index_html.find("</body>")
             index_html = index_html[:insert_index] + \
