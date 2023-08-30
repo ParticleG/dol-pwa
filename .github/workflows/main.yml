@@ -91,15 +91,15 @@ jobs:
                 "  <script type=\"text/javascript\">\n" + \
                 "    const sleep = (timeout) => new Promise(resolve => setTimeout(resolve, timeout));\n" + \
                 "    (async () => {\n" + \
-                "      let versionElement = document.querySelector('#versioninfo');\n" + \
-                "      while (!versionElement) {\n" + \
-                "        versionElement = document.querySelector('#versioninfo');\n" + \
+                "      let uiBarBody = document.querySelector('#ui-bar-body');\n" + \
+                "      while (!uiBarBody) {\n" + \
+                "        uiBarBody = document.querySelector('#ui-bar-body');\n" + \
                 "        await sleep(100);\n" + \
                 "      }\n" + \
-                "      const newElement = document.createElement('div')\n" + \
-                "      newElement.style = 'text-align: left; font-size: 0.75rem'\n" + \
-                "      newElement.innerHTML = '<br>Applied Mods:<br>- Degrees of Lewdity Graphics Mod<br>'\n" + \
-                "      versionElement.insertBefore(newElement, versionElement.querySelectorAll('br')[3]);\n" + \
+                "      const newElement = document.createElement('div');\n" + \
+                "      newElement.style = 'text-align:left;font-size:0.75rem;position:absolute;top:85%;left:10px;width:258px;padding:7px';\n" + \
+                "      newElement.innerHTML = 'Applied Mods:<br>- Degrees of Lewdity Graphics Mod<br>';\n" + \
+                "      uiBarBody.appendChild(newElement);\n" + \
                 "    })();\n" + \
                 "  </script>\n" + index_html[insert_index:]
             index_html_file.seek(0)
