@@ -79,7 +79,7 @@ jobs:
           unzip -q ./img.zip
           rm img.zip
           popd
-          mv -f ${{ env.MOD_FOLDER_PATH }}/* ${{ env.RELEASE_FOLDER_PATH }}
+          cp -f ${{ env.MOD_FOLDER_PATH }}/* ${{ env.RELEASE_FOLDER_PATH }}
           rm -rf ${{ env.MOD_FOLDER_PATH }}
       - name: Modify HTML
         shell: python3 {0}
