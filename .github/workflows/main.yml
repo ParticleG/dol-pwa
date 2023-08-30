@@ -88,14 +88,22 @@ jobs:
             index_html = index_html_file.read()
             insert_index = index_html.find("</body>")
             index_html = index_html[:insert_index] + \
-                "  <script async type=\"text/javascript\">\n" + \
+                "  <script type=\"text/javascript\">\n" + \
                 "    const sleep = (timeout) => new Promise(resolve => setTimeout(resolve, timeout));\n" + \
-                "    let versionElement = document.querySelector('#gameVersionDisplay');\n" + \
-                "    while (!versionElement) {\n" + \
-                "      versionElement = document.querySelector('#gameVersionDisplay');\n" + \
-                "      await sleep(100);\n" + \
-                "    }\n" + \
-                "    versionElement.innerHTML = versionElement.innerHTML + '<br>Applied Mods:<br>- Degrees of Lewdity Graphics Mod';\n" + \
+                "    (async () => {\n" + \
+                "      let versionElement = document.querySelector('#gameVersionDisplay');\n" + \
+                "      while (!versionElement) {\n" + \
+                "        versionElement = document.querySelector('#gameVersionDisplay');\n" + \
+                "        await sleep(100);\n" + \
+                "      }\n" + \
+                "      versionElement.innerHTML = versionElement.innerHTML + ' (1 Mod)';\n" + \
+                "      let versionElement2 = document.querySelector('#gameVersionDisplay2');\n" + \
+                "      while (!versionElement2) {\n" + \
+                "        versionElement2 = document.querySelector('#gameVersionDisplay2');\n" + \
+                "        await sleep(100);\n" + \
+                "      }\n" + \
+                "      versionElement2.innerHTML = versionElement2.innerHTML + '<br>Applied Mods:<br>- Degrees of Lewdity Graphics Mod';\n" + \
+                "    })();\n" + \
                 "  </script>\n" + index_html[insert_index:]
             index_html_file.seek(0)
             index_html_file.truncate()
