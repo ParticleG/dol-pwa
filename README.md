@@ -1,4 +1,4 @@
-# DOL-PWA
+# DOL-PWA [![Main](https://github.com/ParticleG/dol-pwa/actions/workflows/main.yml/badge.svg)](https://github.com/ParticleG/dol-pwa/actions/workflows/main.yml)
 
 ## Description
 

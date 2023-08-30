@@ -88,10 +88,15 @@ jobs:
             index_html = index_html_file.read()
             insert_index = index_html.find("</body>")
             index_html = index_html[:insert_index] + \
-                "    <script type=\"text/javascript\">\n" + \
-                "        const versionHtml = document.querySelector('#gameVersionDisplay').innerHTML;\n" + \
-                "        document.querySelector('#gameVersionDisplay').innerHTML = versionHtml + '<br>Applied Mods:<br>- Degrees of Lewdity Graphics Mod';\n" + \
-                "    </script>\n" + index_html[insert_index:]
+                "  <script async type=\"text/javascript\">\n" + \
+                "    const sleep = (timeout) => new Promise(resolve => setTimeout(resolve, timeout));\n" + \
+                "    let versionElement = document.querySelector('#gameVersionDisplay');\n" + \
+                "    while (!versionElement) {\n" + \
+                "      versionElement = document.querySelector('#gameVersionDisplay');\n" + \
+                "      await sleep(100);\n" + \
+                "    }\n" + \
+                "    versionElement.innerHTML = versionElement.innerHTML + '<br>Applied Mods:<br>- Degrees of Lewdity Graphics Mod';\n" + \
+                "  </script>\n" + index_html[insert_index:]
             index_html_file.seek(0)
             index_html_file.truncate()
             index_html_file.write(index_html)
