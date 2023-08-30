@@ -75,7 +75,7 @@ jobs:
         run: |
           mkdir ${{ env.MOD_FOLDER_PATH }}
           pushd ${{ env.MOD_FOLDER_PATH }}
-          wget -q https://gitgud.io/BEEESSS/degrees-of-lewdity-graphics-mod/-/raw/master/img.zip?ref_type=heads
+          wget https://gitgud.io/BEEESSS/degrees-of-lewdity-graphics-mod/-/raw/master/img.zip?ref_type=heads
           unzip -q ./img.zip
           rm img.zip
           popd
